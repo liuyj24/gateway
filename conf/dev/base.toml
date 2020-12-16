@@ -35,3 +35,8 @@
 [session]
     redis_server = "129.204.120.143:6379"   #redis session server
     redis_password = "875466528"
+
+[cluster]
+    cluster_ip="127.0.0.1"
+    cluster_port="8080"
+    cluster_ssl_port="4433"
