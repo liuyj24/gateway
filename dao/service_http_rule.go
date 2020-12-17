@@ -18,12 +18,19 @@ type HttpRule struct {
 	HeaderTransfor string `json:"header_transfor" gorm:"column:header_transfor" description:"header转换支持增加(add)、删除(del)、修改(edit) 格式: add headname headvalue	"`
 }
 
-func (t *HttpRule) TableName() string {
+func (hr *HttpRule) TableName() string {
 	return "gateway_service_http_rule"
 }
 
-func (*HttpRule) Find(c *gin.Context, db *gorm.DB, search *HttpRule) (*HttpRule, error) {
+func (hr *HttpRule) Find(c *gin.Context, db *gorm.DB, search *HttpRule) (*HttpRule, error) {
 	result := &HttpRule{}
 	err := db.SetCtx(public.GetGinTraceContext(c)).Where(search).Find(result).Error
 	return result, err
+}
+
+func (hr *HttpRule) Save(c *gin.Context, db *gorm.DB) error {
+	if err := db.SetCtx(public.GetGinTraceContext(c)).Save(hr).Error; err != nil {
+		return err
+	}
+	return nil
 }
