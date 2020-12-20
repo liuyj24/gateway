@@ -1,8 +1,10 @@
 package public
 
 import (
+	"crypto/md5"
 	"crypto/sha1"
 	"fmt"
+	"io"
 )
 
 func GenerateSaltPassword(salt, password string) string {
@@ -13,4 +15,11 @@ func GenerateSaltPassword(salt, password string) string {
 	s2 := sha1.New()
 	s2.Write([]byte(str1 + salt))
 	return fmt.Sprintf("%x", s2.Sum(nil))
+}
+
+//MD5 md5加密
+func MD5(s string) string {
+	h := md5.New()
+	io.WriteString(h, s)
+	return fmt.Sprintf("%x", h.Sum(nil))
 }

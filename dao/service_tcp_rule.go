@@ -21,3 +21,10 @@ func (*TcpRule) Find(c *gin.Context, db *gorm.DB, search *TcpRule) (*TcpRule, er
 	err := db.SetCtx(public.GetGinTraceContext(c)).Where(search).Find(result).Error
 	return result, err
 }
+
+func (tr *TcpRule) Save(c *gin.Context, db *gorm.DB) error {
+	if err := db.SetCtx(public.GetGinTraceContext(c)).Save(tr).Error; err != nil {
+		return err
+	}
+	return nil
+}

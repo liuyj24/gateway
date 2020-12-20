@@ -22,3 +22,10 @@ func (*GrpcRule) Find(c *gin.Context, db *gorm.DB, search *GrpcRule) (*GrpcRule,
 	err := db.SetCtx(public.GetGinTraceContext(c)).Where(search).Find(result).Error
 	return result, err
 }
+
+func (gr *GrpcRule) Save(c *gin.Context, db *gorm.DB) error {
+	if err := db.SetCtx(public.GetGinTraceContext(c)).Save(gr).Error; err != nil {
+		return err
+	}
+	return nil
+}
